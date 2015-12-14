@@ -1,5 +1,8 @@
-var JSONPath = require('../'),
-    testCase = require('nodeunit').testCase
+/*eslint-disable quotes*/
+(function () {'use strict';
+
+var jsonpath = require('../'),
+    testCase = require('nodeunit').testCase;
 
 // tests based on examples at http://goessner.net/articles/JsonPath/
 
@@ -36,78 +39,78 @@ var json = {"store": {
   }
 };
 
-
 module.exports = testCase({
 
     // ============================================================================
-    'dot notation': function(test) {
+    'dot notation': function (test) {
     // ============================================================================
         test.expect(1);
         var books = json.store.book;
         var expected = [books[0].author, books[1].author, books[2].author, books[3].author];
-        var result = JSONPath({json: json, path: '$.store.book[*].author'});
+        var result = jsonpath({json: json, path: '$.store.book[*].author'});
         test.deepEqual(expected, result);
 
         test.done();
     },
 
     // ============================================================================
-    'bracket notation': function(test) {
+    'bracket notation': function (test) {
     // ============================================================================
         test.expect(1);
         var books = json.store.book;
         var expected = [books[0].author, books[1].author, books[2].author, books[3].author];
-        var result = JSONPath({json: json, path: "$['store']['book'][*]['author']"});
+        var result = jsonpath({json: json, path: "$['store']['book'][*]['author']"});
         test.deepEqual(expected, result);
 
         test.done();
     },
 
     // ============================================================================
-    'bracket notation without quotes': function(test) {
+    'bracket notation without quotes': function (test) {
     // ============================================================================
         test.expect(1);
         var books = json.store.book;
         var expected = [books[0].author, books[1].author, books[2].author, books[3].author];
-        var result = JSONPath({json: json, path: "$[store][book][*][author]"});
+        var result = jsonpath({json: json, path: "$[store][book][*][author]"});
         test.deepEqual(expected, result);
 
         test.done();
     },
 
     // ============================================================================
-    'mixed notation': function(test) {
+    'mixed notation': function (test) {
     // ============================================================================
         test.expect(1);
         var books = json.store.book;
         var expected = [books[0].author, books[1].author, books[2].author, books[3].author];
-        var result = JSONPath({json: json, path: "$.store.book[*]['author']"});
+        var result = jsonpath({json: json, path: "$.store.book[*]['author']"});
         test.deepEqual(expected, result);
 
         test.done();
     },
 
     // ============================================================================
-    'bracket notation containing dots': function(test) {
+    'bracket notation containing dots': function (test) {
     // ============================================================================
         test.expect(1);
         var books = json.store.book;
         var expected = [books[0]["application/vnd.wordperfect"]];
-        var result = JSONPath({json: json, path: "$['store']['book'][*]['application/vnd.wordperfect']"});
+        var result = jsonpath({json: json, path: "$['store']['book'][*]['application/vnd.wordperfect']"});
         test.deepEqual(expected, result);
 
         test.done();
     },
 
     // ============================================================================
-    'mixed notation continaing dots': function(test) {
+    'mixed notation continaing dots': function (test) {
     // ============================================================================
         test.expect(1);
         var books = json.store.book;
         var expected = [books[0]["application/vnd.wordperfect"]];
-        var result = JSONPath({json: json, path: "$.store.book[*]['application/vnd.wordperfect']"});
+        var result = jsonpath({json: json, path: "$.store.book[*]['application/vnd.wordperfect']"});
         test.deepEqual(expected, result);
 
         test.done();
-    },
+    }
 });
+}());

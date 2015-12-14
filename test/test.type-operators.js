@@ -42,13 +42,14 @@ var json = {"store": {
 module.exports = testCase({
 
     // ============================================================================
-    'all sub properties, entire tree': function (test) {
-        // ============================================================================
+    '@other()': function (test) {
+    // ============================================================================
         test.expect(1);
-        var books = json.store.book;
-        var expected = [books[1].price, books[2].price, books[3].price, json.store.bicycle.price];
-        expected = books[0].price.concat(expected);
-        var result = jsonpath({json: json, path: '$.store..price', flatten: true});
+        var expected = [12.99, 8.99, 22.99];
+        function endsIn99 (val, path, parent, parentPropName) {
+            return !!val.toString().match(/\.99/);
+        }
+        var result = jsonpath({json: json, path: '$.store.book..*@other()', flatten: true, otherTypeCallback: endsIn99});
         test.deepEqual(expected, result);
 
         test.done();
